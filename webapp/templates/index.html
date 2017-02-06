@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Web Audit</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/simple-sidebar.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link rel='shortcut icon' href="{{ url_for('static', filename='img/favicon.jpg') }}" type='image/x-icon'/ >    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/process_scan.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/html2pdf.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jspdf.debug.js') }}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                        Web Audit
+                    </a>
+                </li>
+                <li>
+                    <a href="/">Dashboard</a>
+                </li>
+                
+                <li>
+                    <a href="about">About</a>
+                </li>
+                <li>
+                    <a href="contact" id="contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 style="text-align: center; margin-bottom:30px">Web Application Audit Tool</h1>
+                        <p></p>
+                        <div class="col-sm-3">
+                        <h4>URL scan:</h4>
+                        <input type="text" class="form-control" id="url_scan" name="url_scan">
+                        <p style="margin-top:20px">Danh sách lỗ hổng:</p>
+                        <p class="error"></p>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="sql_injection">SQL Injection</label>
+                        </div>
+                        
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="sql_blind_injection" >Bind-SQL Injection</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="xss">XSS Injection</label>
+                        </div>                        
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="file_upload">File Upload</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="port_scan">Port Scan</label>
+                        </div>
+                        <button type="submit" class="btn btn-default" name="scan" id="scan">scan</button>
+                        <br>
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle" style="margin-top: 50px;">Toggle Menu</a>
+                        </div> <!-- end div col-sm-3 -->
+                        <div class="col-sm-9" style="border: solid 1px #e2e2e2; max-height: 400">
+                        <div id="form_save_to_pdf">
+                        <div id="getimage"></div>
+                        <h4 id="result">Results:</h4>
+                        <table class="table table-condensed">
+                            <thead>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Start Date:</td>
+                                <td id="start_date"></td>
+                              </tr>
+                              <tr>
+                                <td>End Date:</td>
+                                <td id="end_date"></td>
+                              </tr>
+                              <tr>
+                                <td>Duration:</td>
+                                <td id="duration"></td>
+                              </tr>
+                              <tr>
+                                <td>Domain:</td>
+                                <td id="domain"></td>
+                              </tr>
+                              <tr>
+                                <td>Host:</td>
+                                <td id="host"></td>
+                              </tr>
+                              <tr>
+                                <td>Server:</td>
+                                <td id="server"></td>
+                              </tr>
+                              <tr>
+                                <td>X-powered-by:</td>
+                                <td id="x_powered_by"></td>
+                              </tr>
+                        </tbody>
+                        </table> <!-- end table-->
+                        <div class="col-sm-12">
+                            <div id="chart" style="width: auto; max-height: 400px; margin: 0 auto">
+                            </div>
+                        </div> <!-- end div chart-->
+                        <br>           
+                        <div style="clear: both"></div>                 
+                        <h4 id="detail">Detail:</h4><br>  
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>
